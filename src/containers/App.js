@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setSearchField, requestRobots } from '../actions';
+
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Header from '../components/Header';
+
 import './App.css';
 
-import { setSearchField, requestRobots } from '../actions';
 
 const mapStateToProps = state => {
   return {
     searchField: state.searchRobots.searchField,
     robots: state.requestRobots.robots,
     isPending: state.requestRobots.isPending,
-    error: state.requestRobots.error
+    //error: state.requestRobots.error
   }
 }
 
@@ -38,7 +41,7 @@ class App extends Component {
       <h1>Loading</h1> :
       (
         <div className='tc'>
-          <h1 className='f1'>RoboFriends</h1>
+          <Header />
           <SearchBox searchChange={onSearchChange} />
           <Scroll>
             <ErrorBoundary>
@@ -50,4 +53,5 @@ class App extends Component {
   }
 }
 
+// action done from mapDispatchToProps will change state from mapStateToProps
 export default connect(mapStateToProps, mapDispatchToProps)(App);
